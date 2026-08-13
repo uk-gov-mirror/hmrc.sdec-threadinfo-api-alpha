@@ -21,7 +21,9 @@ import play.api.{Configuration, Environment}
 import uk.gov.hmrc.sdecthreadinfoapialpha.repository.*
 import uk.gov.hmrc.sdecthreadinfoapialpha.service.{
   ThreadReferenceService,
-  ThreadReferenceServiceAlgebra
+  ThreadReferenceServiceAlgebra,
+  ThreadSummaryService,
+  ThreadSummaryServiceAlgebra
 }
 import uk.gov.hmrc.sdecthreadinfoapialpha.stubs.ThreadReferenceRepository
 
@@ -32,16 +34,13 @@ class Module extends AppModule:
     override def bindings(
         environment: Environment,
         configuration: Configuration
-    ): Seq[Binding[_]] =
-      bind[Clock].toInstance(
-        Clock.systemDefaultZone
-      ) :: // inject if current time needs to be controlled in unit tests
-        bind[ThreadReferenceRepositoryAlgebra].to(
-          classOf[ThreadReferenceRepository]
-        )
-        ::
-        bind[ThreadReferenceServiceAlgebra].to(
-          classOf[ThreadReferenceService]
-        )
-        ::
-        Nil
+    ): Seq[Binding[?]] =
+      Seq(
+        bind[Clock].toInstance(Clock.systemDefaultZone()),
+        bind[ThreadReferenceRepositoryAlgebra]
+          .to[ThreadReferenceRepository],
+        bind[ThreadReferenceServiceAlgebra]
+          .to[ThreadReferenceService],
+        bind[ThreadSummaryServiceAlgebra]
+          .to[ThreadSummaryService]
+      )
