@@ -25,7 +25,6 @@ import uk.gov.hmrc.sdecthreadinfoapialpha.service.ThreadSummaryServiceAlgebra
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.ExecutionContext
-import scala.util.control.NonFatal
 
 @Singleton
 class ThreadSummaryController @Inject() (

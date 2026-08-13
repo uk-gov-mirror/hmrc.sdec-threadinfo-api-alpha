@@ -22,7 +22,7 @@ import uk.gov.hmrc.sdecthreadinfoapialpha.model.ThreadSummary
 import uk.gov.hmrc.sdecthreadinfoapialpha.stubs.ThreadSummaryRepository
 
 import javax.inject.{Inject, Singleton}
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NonFatal
 
 @Singleton
