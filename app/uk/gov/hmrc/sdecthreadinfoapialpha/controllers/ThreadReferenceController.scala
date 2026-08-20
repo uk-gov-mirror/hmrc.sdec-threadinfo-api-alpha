@@ -27,6 +27,7 @@ import uk.gov.hmrc.sdecthreadinfoapialpha.exceptions.{
 }
 import uk.gov.hmrc.sdecthreadinfoapialpha.model.ThreadReference
 import uk.gov.hmrc.sdecthreadinfoapialpha.service.ThreadReferenceServiceAlgebra
+import uk.gov.hmrc.auth.core.{AuthConnector, AuthorisedFunctions}
 
 import javax.inject.Singleton
 import scala.concurrent.ExecutionContext
@@ -34,14 +35,19 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class ThreadReferenceController @Inject() (
     cc: ControllerComponents,
+    val authConnector: AuthConnector,
     threadReferenceService: ThreadReferenceServiceAlgebra
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
+    with AuthorisedFunctions
     with Logging {
 
   def getThreadReference(threadId: String): Action[AnyContent] = {
     logger.info(s"getThreadReference: Getting ThreadInformation for $threadId")
     Action.async { implicit request =>
+      request.headers.headers.foreach { case (name, value) =>
+        logger.info(s"Header: $name = $value")
+      }
       threadReferenceService
         .getThreadInfoByThreadId(threadId)
         .map(tr => Ok(Json.toJson(tr)))
