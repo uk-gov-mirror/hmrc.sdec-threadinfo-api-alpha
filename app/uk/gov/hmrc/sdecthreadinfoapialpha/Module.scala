@@ -19,10 +19,7 @@ package uk.gov.hmrc.sdecthreadinfoapialpha
 import play.api.inject.{Binding, Module as AppModule}
 import play.api.{Configuration, Environment}
 import uk.gov.hmrc.sdecthreadinfoapialpha.repository.*
-import uk.gov.hmrc.sdecthreadinfoapialpha.service.{
-  ThreadReferenceService,
-  ThreadReferenceServiceAlgebra
-}
+import uk.gov.hmrc.sdecthreadinfoapialpha.service.*
 import uk.gov.hmrc.sdecthreadinfoapialpha.stubs.ThreadReferenceRepository
 
 import java.time.Clock
@@ -32,16 +29,13 @@ class Module extends AppModule:
     override def bindings(
         environment: Environment,
         configuration: Configuration
-    ): Seq[Binding[_]] =
-      bind[Clock].toInstance(
-        Clock.systemDefaultZone
-      ) :: // inject if current time needs to be controlled in unit tests
-        bind[ThreadReferenceRepositoryAlgebra].to(
-          classOf[ThreadReferenceRepository]
-        )
-        ::
-        bind[ThreadReferenceServiceAlgebra].to(
-          classOf[ThreadReferenceService]
-        )
-        ::
-        Nil
+    ): Seq[Binding[?]] =
+      Seq(
+        bind[Clock].toInstance(Clock.systemDefaultZone()),
+        bind[ThreadReferenceRepositoryAlgebra]
+          .to[ThreadReferenceRepository],
+        bind[ThreadReferenceServiceAlgebra]
+          .to[ThreadReferenceService],
+        bind[ThreadSummaryServiceAlgebra]
+          .to[ThreadSummaryService]
+      )
