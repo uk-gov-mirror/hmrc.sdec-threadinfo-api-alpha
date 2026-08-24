@@ -21,10 +21,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import play.api.http.Status
 import play.api.test.Helpers.*
 import play.api.test.{FakeRequest, Helpers}
-import uk.gov.hmrc.sdecthreadinfoapialpha.exceptions.{
-  InvalidThreadReferenceException,
-  ThreadReferenceNotFoundException
-}
+import uk.gov.hmrc.sdecthreadinfoapialpha.exceptions.{InvalidThreadReferenceException, ThreadReferenceNotFoundException}
 import uk.gov.hmrc.sdecthreadinfoapialpha.model.{ThreadReference, ThreadStatus}
 import uk.gov.hmrc.sdecthreadinfoapialpha.service.ThreadReferenceServiceAlgebra
 
