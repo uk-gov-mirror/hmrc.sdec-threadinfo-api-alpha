@@ -27,7 +27,7 @@ import scala.util.control.NonFatal
 
 @Singleton
 class ThreadSummaryService @Inject() (
-    threadSummaryRepository: ThreadSummaryRepository
+  threadSummaryRepository: ThreadSummaryRepository
 )(using ExecutionContext)
     extends ThreadSummaryServiceAlgebra
     with Logging {

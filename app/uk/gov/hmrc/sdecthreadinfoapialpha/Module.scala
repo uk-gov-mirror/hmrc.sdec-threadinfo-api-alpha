@@ -26,16 +26,16 @@ import java.time.Clock
 
 class Module extends AppModule:
 
-    override def bindings(
-        environment: Environment,
-        configuration: Configuration
-    ): Seq[Binding[?]] =
-      Seq(
-        bind[Clock].toInstance(Clock.systemDefaultZone()),
-        bind[ThreadReferenceRepositoryAlgebra]
-          .to[ThreadReferenceRepository],
-        bind[ThreadReferenceServiceAlgebra]
-          .to[ThreadReferenceService],
-        bind[ThreadSummaryServiceAlgebra]
-          .to[ThreadSummaryService]
-      )
+  override def bindings(
+    environment:   Environment,
+    configuration: Configuration
+  ): Seq[Binding[?]] =
+    Seq(
+      bind[Clock].toInstance(Clock.systemDefaultZone()),
+      bind[ThreadReferenceRepositoryAlgebra]
+        .to[ThreadReferenceRepository],
+      bind[ThreadReferenceServiceAlgebra]
+        .to[ThreadReferenceService],
+      bind[ThreadSummaryServiceAlgebra]
+        .to[ThreadSummaryService]
+    )

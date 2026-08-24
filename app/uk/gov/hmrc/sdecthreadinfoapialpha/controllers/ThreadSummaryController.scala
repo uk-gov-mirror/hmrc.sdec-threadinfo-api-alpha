@@ -28,8 +28,8 @@ import scala.concurrent.ExecutionContext
 
 @Singleton
 class ThreadSummaryController @Inject() (
-    cc: ControllerComponents,
-    threadSummaryService: ThreadSummaryServiceAlgebra
+  cc:                   ControllerComponents,
+  threadSummaryService: ThreadSummaryServiceAlgebra
 )(implicit ec: ExecutionContext)
     extends BackendController(cc)
     with Logging {
