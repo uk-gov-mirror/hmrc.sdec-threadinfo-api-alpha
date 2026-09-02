@@ -18,12 +18,13 @@ package uk.gov.hmrc.sdecthreadinfoapialpha.stubs
 
 import com.github.blemale.scaffeine.{Cache, Scaffeine}
 import uk.gov.hmrc.sdecthreadinfoapialpha.exceptions.ThreadReferenceNotFoundException
-import uk.gov.hmrc.sdecthreadinfoapialpha.model.{ThreadReference, ThreadStatus}
+import uk.gov.hmrc.sdecthreadinfoapialpha.model.{CreateThreadRequest, RecipientDetails, ThreadDetails, ThreadReference, ThreadStatus}
 import uk.gov.hmrc.sdecthreadinfoapialpha.repository.ThreadReferenceRepositoryAlgebra
 
 import java.time.{LocalDate, LocalDateTime}
 import javax.inject.Singleton
 import scala.concurrent.Future
+import java.util.UUID
 
 @Singleton
 class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
@@ -33,34 +34,33 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
 
   seedDummyData()
 
-  private def seedDummyData(): Unit = {
+  private def seedDummyData(): Unit =
     insertThreadReference(
       ThreadReference(
-        id = "123456ABCDEF",
-        threadReference = "THREAD-001",
+        threadReference = "123456ABCDEF",
         status = ThreadStatus.Active,
         createdTimeStamp = LocalDateTime.now().minusDays(2),
         lastUpdatedTimeStamp = LocalDateTime.now().minusHours(3),
         threadExpiryDate = LocalDate.now().plusDays(28),
-        associatedCaseReference = "CASE-001"
+        associatedCaseReference = "CASE-001",
+        recipientDetails = RecipientDetails(
+          firstName = "John",
+          lastName = "Smith",
+          email = "JohnS@hotmail.com",
+          phoneNumber = "07123456789",
+          nationalInsuranceNumber = "QQQQQQQQC",
+          hasRelatedCase = false,
+          caseReferenceNumber = None
+        ),
+        threadDetails = ThreadDetails(
+          message = "Enter default response message",
+          responseDate = LocalDate.now().plusDays(7)
+        )
       )
     )
-
-    insertThreadReference(
-      ThreadReference(
-        id = "DASISTGUT123",
-        threadReference = "THREAD-002",
-        status = ThreadStatus.Draft,
-        createdTimeStamp = LocalDateTime.now().minusDays(1),
-        lastUpdatedTimeStamp = LocalDateTime.now().minusHours(2),
-        threadExpiryDate = LocalDate.now().plusDays(28),
-        associatedCaseReference = "CASE-002"
-      )
-    )
-  }
 
   def insertThreadReference(threadRef: ThreadReference): Future[Unit] = {
-    threadReferenceCache.put(threadRef.id, threadRef)
+    threadReferenceCache.put(threadRef.threadReference, threadRef)
     Future.successful(())
   }
 
@@ -70,4 +70,31 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
       .fold(
         Future.failed(ThreadReferenceNotFoundException(id))
       )(Future.successful)
+
+  override def createThread(request: CreateThreadRequest): Future[ThreadReference] = {
+
+    val generatedThreadReference =
+      UUID.randomUUID().toString.replace("-", "").take(12).toUpperCase
+
+    val now = LocalDateTime.now()
+
+    val threadReference =
+      ThreadReference(
+        threadReference = generatedThreadReference,
+        status = ThreadStatus.Active,
+        createdTimeStamp = now,
+        lastUpdatedTimeStamp = now,
+        threadExpiryDate = request.threadDetails.responseDate,
+        associatedCaseReference = request.recipientDetails.caseReferenceNumber.getOrElse(""),
+        request.recipientDetails,
+        request.threadDetails
+      )
+
+    threadReferenceCache.put(
+      threadReference.threadReference,
+      threadReference
+    )
+
+    Future.successful(threadReference)
+  }
 }
