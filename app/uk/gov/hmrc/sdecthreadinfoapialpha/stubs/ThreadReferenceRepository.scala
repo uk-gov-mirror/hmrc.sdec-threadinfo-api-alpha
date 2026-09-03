@@ -18,13 +18,13 @@ package uk.gov.hmrc.sdecthreadinfoapialpha.stubs
 
 import com.github.blemale.scaffeine.{Cache, Scaffeine}
 import uk.gov.hmrc.sdecthreadinfoapialpha.exceptions.ThreadReferenceNotFoundException
-import uk.gov.hmrc.sdecthreadinfoapialpha.model.{CreateThreadRequest, RecipientDetails, ThreadDetails, ThreadReference, ThreadStatus}
+import uk.gov.hmrc.sdecthreadinfoapialpha.model.*
 import uk.gov.hmrc.sdecthreadinfoapialpha.repository.ThreadReferenceRepositoryAlgebra
 
 import java.time.{LocalDate, LocalDateTime}
+import java.util.UUID
 import javax.inject.Singleton
 import scala.concurrent.Future
-import java.util.UUID
 
 @Singleton
 class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
