@@ -31,13 +31,40 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
   private val threadReferenceCache: Cache[String, ThreadReference] = Scaffeine()
     .build[String, ThreadReference]()
 
+  private val activeMessage: String =
+    """
+      |Dear Jenny
+      |
+      |We are reviewing your recent submission and need some further information before we can continue.
+      |
+      |Please reply to this thread with any details that may help us assess your case, including anything that has changed since your original submission.
+      |
+      |Best regards
+      |
+      |HMRC
+      """.stripMargin
+
+  private val closedMessage: String =
+    """
+      |Dear Jenny
+      |
+      |HMRC has concluded that we will close this thread.
+      |
+      |Thanks for your cooperation.
+      |
+      |Best regards
+      |
+      |HMRC
+      """.stripMargin
+
   seedDummyData()
 
   private def seedDummyData(): Unit = {
     insertThreadReference(
       ThreadReference(
-        id = "123456ABCDEF",
-        threadReference = "THREAD-001",
+        id = "THREAD1000AA",
+        recipientName = Some("Jenny Worthy"),
+        message = Some(activeMessage),
         status = ThreadStatus.Active,
         createdTimeStamp = LocalDateTime.now().minusDays(2),
         lastUpdatedTimeStamp = LocalDateTime.now().minusHours(3),
@@ -48,13 +75,53 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
 
     insertThreadReference(
       ThreadReference(
-        id = "DASISTGUT123",
-        threadReference = "THREAD-002",
+        id = "THREAD2000BB",
+        recipientName = Some("Jenny Worthy"),
+        message = None,
         status = ThreadStatus.Draft,
         createdTimeStamp = LocalDateTime.now().minusDays(1),
         lastUpdatedTimeStamp = LocalDateTime.now().minusHours(2),
         threadExpiryDate = LocalDate.now().plusDays(28),
         associatedCaseReference = "CASE-002"
+      )
+    )
+
+    insertThreadReference(
+      ThreadReference(
+        id = "THREAD3000CC",
+        recipientName = Some("Jenny Worthy"),
+        message = Some(closedMessage),
+        status = ThreadStatus.Closed,
+        createdTimeStamp = LocalDateTime.now().minusDays(1),
+        lastUpdatedTimeStamp = LocalDateTime.now().minusHours(2),
+        threadExpiryDate = LocalDate.now().plusDays(28),
+        associatedCaseReference = "CASE-003"
+      )
+    )
+
+    insertThreadReference(
+      ThreadReference(
+        id = "THREAD4000DD",
+        recipientName = Some("Jenny Worthy"),
+        message = Some(closedMessage),
+        status = ThreadStatus.Archived,
+        createdTimeStamp = LocalDateTime.now().minusDays(1),
+        lastUpdatedTimeStamp = LocalDateTime.now().minusHours(2),
+        threadExpiryDate = LocalDate.now().plusDays(28),
+        associatedCaseReference = "CASE-004"
+      )
+    )
+
+    insertThreadReference(
+      ThreadReference(
+        id = "THREAD5000EE",
+        recipientName = None,
+        message = None,
+        status = ThreadStatus.Draft,
+        createdTimeStamp = LocalDateTime.now().minusDays(1),
+        lastUpdatedTimeStamp = LocalDateTime.now().minusHours(2),
+        threadExpiryDate = LocalDate.now().plusDays(28),
+        associatedCaseReference = "CASE-005"
       )
     )
   }

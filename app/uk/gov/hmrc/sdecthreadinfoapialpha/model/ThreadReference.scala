@@ -22,7 +22,8 @@ import java.time.{LocalDate, LocalDateTime}
 
 case class ThreadReference(
   id:                      String,
-  threadReference:         String,
+  recipientName:           Option[String],
+  message:                 Option[String],
   status:                  ThreadStatus,
   createdTimeStamp:        LocalDateTime,
   lastUpdatedTimeStamp:    LocalDateTime,

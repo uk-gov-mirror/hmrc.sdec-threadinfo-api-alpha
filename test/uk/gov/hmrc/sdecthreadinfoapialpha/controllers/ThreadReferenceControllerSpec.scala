@@ -32,7 +32,8 @@ class ThreadReferenceControllerSpec extends AnyWordSpec with Matchers {
 
   private val threadReference = ThreadReference(
     id = "123456ABCDEF",
-    threadReference = "THREAD-001",
+    recipientName = Some("someName"),
+    message = Some("someMessage"),
     status = ThreadStatus.Active,
     createdTimeStamp = LocalDateTime.parse("2026-06-30T11:05:23"),
     lastUpdatedTimeStamp = LocalDateTime.parse("2026-07-02T08:05:23"),
