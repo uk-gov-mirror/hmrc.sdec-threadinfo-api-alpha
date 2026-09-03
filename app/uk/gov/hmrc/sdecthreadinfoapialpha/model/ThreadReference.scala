@@ -21,7 +21,7 @@ import play.api.libs.json.{Format, Json}
 import java.time.{LocalDate, LocalDateTime}
 
 case class ThreadReference(
-  threadReference:         String,
+  id:                      String,
   status:                  ThreadStatus,
   createdTimeStamp:        LocalDateTime,
   lastUpdatedTimeStamp:    LocalDateTime,

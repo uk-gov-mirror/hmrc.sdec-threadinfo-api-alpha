@@ -37,7 +37,7 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
   private def seedDummyData(): Unit =
     insertThreadReference(
       ThreadReference(
-        threadReference = "123456ABCDEF",
+        id = "123456ABCDEF",
         status = ThreadStatus.Active,
         createdTimeStamp = LocalDateTime.now().minusDays(2),
         lastUpdatedTimeStamp = LocalDateTime.now().minusHours(3),
@@ -60,7 +60,7 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
     )
 
   def insertThreadReference(threadRef: ThreadReference): Future[Unit] = {
-    threadReferenceCache.put(threadRef.threadReference, threadRef)
+    threadReferenceCache.put(threadRef.id, threadRef)
     Future.successful(())
   }
 
@@ -80,7 +80,7 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
 
     val threadReference =
       ThreadReference(
-        threadReference = generatedThreadReference,
+        id = generatedThreadReference,
         status = ThreadStatus.Active,
         createdTimeStamp = now,
         lastUpdatedTimeStamp = now,
@@ -91,7 +91,7 @@ class ThreadReferenceRepository extends ThreadReferenceRepositoryAlgebra {
       )
 
     threadReferenceCache.put(
-      threadReference.threadReference,
+      threadReference.id,
       threadReference
     )
 

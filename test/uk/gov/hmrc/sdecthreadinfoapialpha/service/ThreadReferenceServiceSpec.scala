@@ -30,7 +30,7 @@ import scala.concurrent.Future
 class ThreadReferenceServiceSpec extends AnyWordSpec with Matchers {
 
   private val threadReference = ThreadReference(
-    threadReference = "THREAD-001",
+    id = "THREAD-001",
     status = ThreadStatus.Active,
     createdTimeStamp = LocalDateTime.parse("2026-06-30T11:05:23"),
     lastUpdatedTimeStamp = LocalDateTime.parse("2026-07-02T08:05:23"),

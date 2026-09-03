@@ -38,7 +38,7 @@ class ThreadCreateController @Inject() (
           Created(
             Json.toJson(
               CreateThreadResponse(
-                threadReference = thread.threadReference,
+                threadReference = thread.id,
                 createdTimeStamp = thread.createdTimeStamp
               )
             )
