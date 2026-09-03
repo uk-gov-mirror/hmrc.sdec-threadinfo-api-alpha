@@ -27,7 +27,7 @@ class ThreadSummaryRepository {
 
   private val threads: Seq[ThreadSummary] = Seq(
     ThreadSummary(
-      threadReference = "THR-2026-0616-0002",
+      threadReference = "THREAD1000AA",
       relatedReference = Some("QQ 12 34 56 C"),
       externalContact = "Hunter Sage",
       status = "Waiting",
@@ -35,7 +35,7 @@ class ThreadSummaryRepository {
       deadline = Some(LocalDate.now().minusDays(2))
     ),
     ThreadSummary(
-      threadReference = "THR-2026-0616-0003",
+      threadReference = "THREAD2000BB",
       relatedReference = None,
       externalContact = "Jimmie Worthy",
       status = "Waiting",
@@ -43,7 +43,7 @@ class ThreadSummaryRepository {
       deadline = Some(LocalDate.now().minusDays(1))
     ),
     ThreadSummary(
-      threadReference = "THR-2026-0616-0004",
+      threadReference = "THREAD3000CC",
       relatedReference = Some("CMS-62-02-43"),
       externalContact = "Jeanette Meador",
       status = "Waiting",
@@ -51,7 +51,7 @@ class ThreadSummaryRepository {
       deadline = Some(LocalDate.now().plusDays(14))
     ),
     ThreadSummary(
-      threadReference = "THR-2026-0616-0005",
+      threadReference = "THREAD4000DD",
       relatedReference = Some("QQ 12 34 56 C"),
       externalContact = "Ansley Handy",
       status = "Needs action",
@@ -59,7 +59,7 @@ class ThreadSummaryRepository {
       deadline = None
     ),
     ThreadSummary(
-      threadReference = "THR-2026-0616-0006",
+      threadReference = "THREAD5000EE",
       relatedReference = None,
       externalContact = "Sydnee Mansfield",
       status = "In progress",
