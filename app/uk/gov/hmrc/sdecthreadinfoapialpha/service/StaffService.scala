@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.sdecthreadinfoapialpha.service
 
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.sdecthreadinfoapialpha.hcp.repository.{SDECStaffRepositoryAlgebra, SDECTeamRepositoryAlgebra, StaffRoleRepositoryAlgebra}
 import uk.gov.hmrc.sdecthreadinfoapialpha.model.hcp.SRSRole
 
@@ -35,7 +36,7 @@ class StaffService @Inject() (
   override def validateAccess(
     pid:  String,
     role: String
-  ): Future[Boolean] =
+  )(using hc: HeaderCarrier): Future[Boolean] =
 
     role match {
 

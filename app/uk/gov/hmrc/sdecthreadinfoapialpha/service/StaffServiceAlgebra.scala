@@ -16,8 +16,11 @@
 
 package uk.gov.hmrc.sdecthreadinfoapialpha.service
 
+import uk.gov.hmrc.http.HeaderCarrier
+
 import scala.concurrent.Future
 
 trait StaffServiceAlgebra {
-  def validateAccess(pid: String, role: String): Future[Boolean]
+
+  def validateAccess(pid: String, role: String)(using hc: HeaderCarrier): Future[Boolean]
 }

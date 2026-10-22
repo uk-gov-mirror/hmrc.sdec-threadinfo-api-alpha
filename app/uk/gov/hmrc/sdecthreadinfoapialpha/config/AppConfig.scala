@@ -25,4 +25,6 @@ class AppConfig @Inject() (config: Configuration) {
 
   val appName: String = config.get[String]("appName")
 
+  val ipaasUrl: String = config.get[String]("urls.ipaas")
+
 }

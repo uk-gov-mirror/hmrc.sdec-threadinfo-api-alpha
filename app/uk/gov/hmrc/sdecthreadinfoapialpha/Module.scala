@@ -18,6 +18,7 @@ package uk.gov.hmrc.sdecthreadinfoapialpha
 
 import play.api.inject.{Binding, Module as AppModule}
 import play.api.{Configuration, Environment}
+import uk.gov.hmrc.sdecthreadinfoapialpha.hcp.connector.HCPStaffRoleDataAccess
 import uk.gov.hmrc.sdecthreadinfoapialpha.hcp.repository.*
 import uk.gov.hmrc.sdecthreadinfoapialpha.hcp.stub.*
 import uk.gov.hmrc.sdecthreadinfoapialpha.repository.ThreadReferenceRepositoryAlgebra
@@ -36,7 +37,7 @@ class Module extends AppModule {
       bind[Clock].toInstance(Clock.systemDefaultZone()),
       bind[SDECStaffRepositoryAlgebra].to[SDECStaffRepository],
       bind[SDECTeamRepositoryAlgebra].to[SDECTeamRepository],
-      bind[StaffRoleRepositoryAlgebra].to[StaffRoleRepository],
+      bind[StaffRoleRepositoryAlgebra].to[HCPStaffRoleDataAccess],
       bind[SDECRecipientRepositoryAlgebra].to[SDECRecipientRepository],
       bind[SDECThreadRepositoryAlgebra].to[SDECThreadRepository],
       bind[TeamServiceAlgebra].to[TeamService],

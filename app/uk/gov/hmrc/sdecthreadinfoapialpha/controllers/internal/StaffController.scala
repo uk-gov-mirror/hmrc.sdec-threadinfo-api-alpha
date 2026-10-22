@@ -35,6 +35,8 @@ class StaffController @Inject() (
     extends BackendController(cc)
     with Logging {
 
+  def updateStaffProfile():Action[AnyContent] = ???
+
   def validateAccess(): Action[AnyContent] =
     identity.async { implicit request =>
       request.body.asJson match {

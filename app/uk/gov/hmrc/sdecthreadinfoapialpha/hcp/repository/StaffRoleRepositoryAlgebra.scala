@@ -16,26 +16,27 @@
 
 package uk.gov.hmrc.sdecthreadinfoapialpha.hcp.repository
 
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.sdecthreadinfoapialpha.model.hcp.StaffRole
 
 import scala.concurrent.Future
 
 trait StaffRoleRepositoryAlgebra {
 
-  def findById(id: Long): Future[Option[StaffRole]]
+  def findById(id: Long)(using hc: HeaderCarrier): Future[Option[StaffRole]]
 
-  def findByStaffId(staffId: Long): Future[Seq[StaffRole]]
+  def findByStaffId(staffId: Long)(using hc: HeaderCarrier): Future[Seq[StaffRole]]
 
-  def findByTeamId(teamId: Long): Future[Seq[StaffRole]]
+  def findByTeamId(teamId: Long)(using hc: HeaderCarrier): Future[Seq[StaffRole]]
 
   def findByStaffAndTeam(
     staffId: Long,
     teamId:  Long
-  ): Future[Option[StaffRole]]
+  )(using hc: HeaderCarrier): Future[Option[StaffRole]]
 
-  def insert(staffRole: StaffRole): Future[Long]
+  def insert(staffRole: StaffRole)(using hc: HeaderCarrier): Future[Long]
 
-  def update(staffRole: StaffRole): Future[Int]
+  def update(staffRole: StaffRole)(using hc: HeaderCarrier): Future[Int]
 
-  def delete(id: Long): Future[Int]
+  def delete(id: Long)(using hc: HeaderCarrier): Future[Int]
 }

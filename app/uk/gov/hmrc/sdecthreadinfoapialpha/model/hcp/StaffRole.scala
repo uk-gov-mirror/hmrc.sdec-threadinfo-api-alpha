@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.sdecthreadinfoapialpha.model.hcp
 
-import play.api.libs.json.{Json, OFormat}
+import play.api.libs.json.{Format, Json}
 
 case class StaffRole(
   id:      Long,
@@ -26,5 +26,5 @@ case class StaffRole(
 )
 
 object StaffRole {
-  given OFormat[StaffRole] = Json.format[StaffRole]
+  given Format[StaffRole] = Json.format[StaffRole]
 }
